@@ -1,20 +1,19 @@
 package com.ipasoft.hazelcast.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
 
-//import com.ipasoft.hazelcast.controller.HazelcastInstance;
-//import com.ipasoft.hazelcast.controller.IMap;
-
 @Service
-public class HazelcastService implements IHazelcastService {
+public class HazelcastDistributedCacheService implements IHazelcastDistributedCacheService {
 
-	@Autowired
-    private HazelcastInstance hazelcastInstance;
+    private final HazelcastInstance hazelcastInstance;
+	
+	public HazelcastDistributedCacheService(HazelcastInstance hazelcastInstance) {
+		this.hazelcastInstance = hazelcastInstance;
+	}
 
 	@Cacheable("ipa-hazel")
 	@Override

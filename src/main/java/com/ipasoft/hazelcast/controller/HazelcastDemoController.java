@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipasoft.hazelcast.service.IHazelcastService;
+import com.ipasoft.hazelcast.service.IHazelcastDistributedCacheService;
 
 @RestController
 @RequestMapping("/hazelcast")
 public class HazelcastDemoController {
 
-    private final IHazelcastService hazelcastService;
+    private final IHazelcastDistributedCacheService hazelcastService;
 
-    public HazelcastDemoController(IHazelcastService hazelcastService) {
+    public HazelcastDemoController(IHazelcastDistributedCacheService hazelcastService) {
 		this.hazelcastService = hazelcastService;
 	}
     
