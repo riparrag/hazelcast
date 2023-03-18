@@ -15,24 +15,24 @@ public class HazelcastDistributedCacheService implements IHazelcastDistributedCa
 		this.hazelcastInstance = hazelcastInstance;
 	}
 
-	@Cacheable("ipa-hazel")
-	@Override
 	/**
 	 * Esto hace que se llame solo 1 vez y luego queda cacheado en hacelcast si esta configurado, sino lo deja cacheado en un ConcurrentHashMap
 	 */
+	@Override
+	@Cacheable("ipa-hazel")
 	public String getHazelcastDemo() {
 		return doSomethingToGet();
 	}
 	
 	@Override
     public void put(String key, String value) {
-        IMap<String, String> map = hazelcastInstance.getMap("my-distributed-map");
+        IMap<String, String> map = hazelcastInstance.getMap(MY_DISTRIBUTED_MAP);
         map.put(key, value);
     }
 
 	@Override
     public String get(String key) {
-        IMap<String, String> map = hazelcastInstance.getMap("my-distributed-map");
+        IMap<String, String> map = hazelcastInstance.getMap(MY_DISTRIBUTED_MAP);
         return map.get(key);
     }
 
@@ -43,7 +43,7 @@ public class HazelcastDistributedCacheService implements IHazelcastDistributedCa
 			Thread.sleep(3000);
 			System.out.println("levantado.");
 			
-			IMap<String, String> map = hazelcastInstance.getMap("my-distributed-map");
+			IMap<String, String> map = hazelcastInstance.getMap(MY_DISTRIBUTED_MAP);
 	        map.put("1", "Hello");
 	        map.put("2", "World");
 	        return "Map size: " + map.size() + "\n" +
