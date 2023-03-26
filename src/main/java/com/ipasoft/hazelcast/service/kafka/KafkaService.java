@@ -1,8 +1,10 @@
-package com.ipasoft.hazelcast.service;
+package com.ipasoft.hazelcast.service.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+
+import com.ipasoft.hazelcast.service.hazelcast.IHazelcastDistributedCacheService;
 
 @Service
 public class KafkaService implements IKafkaService {
@@ -12,8 +14,8 @@ public class KafkaService implements IKafkaService {
         this.hazelcastDistributedCacheService = hazelcastDistributedCacheService;
     }
 
-    @KafkaListener(topics ="ivaldis-topic")
+    @KafkaListener(groupId="ivaldis-group", topics ="ivaldis-topic")
     public void listen(ConsumerRecord<String, String> record) {
-    	hazelcastDistributedCacheService.put(record.key(), record.value());
+    	hazelcastDistributedCacheService.putCachedString(record.key(), record.value());
     }
 }

@@ -1,5 +1,8 @@
 hazelcast:
+  cluster-name: hello-world
   network:
-    join:
-      multicast:
-        enabled: true
+    public-address: 172.18.0.2:5701
+#  network:
+#    join:
+#      multicast:
+#        enabled: true

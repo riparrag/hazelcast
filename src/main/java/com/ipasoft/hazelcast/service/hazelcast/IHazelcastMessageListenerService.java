@@ -1,4 +1,4 @@
-package com.ipasoft.hazelcast.service;
+package com.ipasoft.hazelcast.service.hazelcast;
 
 public interface IHazelcastMessageListenerService {
 

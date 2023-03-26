@@ -1,4 +1,4 @@
-package com.ipasoft.hazelcast.service;
+package com.ipasoft.hazelcast.service.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
