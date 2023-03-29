@@ -34,6 +34,7 @@ public class HazelcastDistributedCacheService implements IHazelcastDistributedCa
 		//creo índices en las propiedades de los objetos almacenados en el mapa
 		this.rootsMap.addIndex(new IndexConfig(IndexType.SORTED, "level1.level2.level3.prop5"));  
 		this.rootsMap.addIndex(IndexType.SORTED, "level1.prop1");
+		this.rootsMap.addIndex(IndexType.SORTED, "level1.prop2");
 	}
 
 //Test Cacheable -----------------------------------------------------------------------------------
