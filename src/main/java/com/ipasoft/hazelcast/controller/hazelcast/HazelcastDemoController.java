@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipasoft.hazelcast.model.entity.hazelcast.CachedData;
 import com.ipasoft.hazelcast.model.entity.redis.Root;
 import com.ipasoft.hazelcast.service.hazelcast.IHazelCastMigrationService;
 import com.ipasoft.hazelcast.service.hazelcast.IHazelcastDistributedCacheService;
@@ -47,13 +46,18 @@ public class HazelcastDemoController {
     }
     
     @GetMapping("/get-root/{key}")
-    private CachedData<?> getRoot(@PathVariable int key) {
+    private Root getRoot(@PathVariable int key) {
     	return this.hazelcastService.getCachedData(key);
 	}
     
     @GetMapping("/get-all-roots")
-    public Map<Object, Object> getAllRoots() {
-        return this.hazelcastService.getAllCachedData();
+    public Map<Integer, Root> getAllRoots() {
+        return this.hazelcastService.getAllCachedData(1,2,3,4,5,6);
+    }
+    
+    @GetMapping("/query-roots")
+    public Iterable<Root> queryRoots() {
+        return this.hazelcastService.getFilteredRoots();
     }
     
     @GetMapping("/move-all-roots-from-redis-to-hazelcast")

@@ -1,8 +1,54 @@
-hazelcast:
-  cluster-name: hello-world
-  network:
-    public-address: 172.18.0.2:5701
+#opcion 1
+#hazelcast:
+#  cluster-name: hazelcast-ipademo
+
+#opcion 2
+#hazelcast:
+#  cluster-name: hazelcast-ipademo
+#  network:  	  
+#    join:
+#      tcp-ip:
+#        enabled: true
+#        member-list:
+#          - 172.18.0.2:5701
+##          - 172.22.41.210:5702
+
+#opcion 3
+#  network:
+#    public-address: 172.18.0.2
+#    public-address: 172.18.0.2:5701
 #  network:
 #    join:
 #      multicast:
 #        enabled: true
+
+#opcion 4
+#hazelcast:
+#  network:
+#    port:
+#      port: 5701
+#    join:
+#      multicast:
+#        enabled: false
+#      tcp-ip:
+#        enabled: true
+#        member: 172.18.0.2
+
+#opcion 5
+#hazelcast-client:
+#  cluster-name: hazelcast-ipademo
+#  network:
+#    smart-routing: true
+#    cluster-members:
+#      - 172.18.0.2
+#    redo-operation: true
+#    connection-timeout: 60000
+
+#opcion 6
+hazelcast:
+  network:
+    join:
+      multicast:
+        enabled: true
+hazelcast-client:
+  cluster-name: hazelcast-ipademo
