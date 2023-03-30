@@ -2,12 +2,14 @@ package com.ipasoft.hazelcast.service.hazelcast;
 
 import java.util.Map;
 
+import com.ipasoft.hazelcast.model.entity.redis.OtherObject;
 import com.ipasoft.hazelcast.model.entity.redis.Root;
 
 public interface IHazelcastDistributedCacheService {
 	
 	public final static String DISTRIBUTED_STRING_MAP = "string_map";
 	public final static String DISTRIBUTED_ROOT_MAPS  = "root_maps";
+	public final static String DISTRIBUTED_OTHEROBJECT_MAPS  = "other_object_maps";
 
 	public String getHazelcastDemoMethodCache();
 	
@@ -24,4 +26,8 @@ public interface IHazelcastDistributedCacheService {
 	public Root putRoot(Root root);
 	
 	public Iterable<Root> getFilteredRoots();
+	public Iterable<OtherObject> getJoinedRootsAndOtherObjects();
+
+	public void putOtherObject(OtherObject otherObject);
+
 }

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ipasoft.hazelcast.model.entity.redis.OtherObject;
 import com.ipasoft.hazelcast.model.entity.redis.Root;
 import com.ipasoft.hazelcast.model.entity.redis.StudentRedis;
+import com.ipasoft.hazelcast.repository.redis.IOtherObjectRedisRepository;
 import com.ipasoft.hazelcast.repository.redis.IRoot3LevelsRedisRepository;
 import com.ipasoft.hazelcast.repository.redis.IStudentRedisRepository;
 
@@ -23,11 +25,13 @@ public class RedisService implements IRedisService {
 	private final RedisTemplate<String, String> redisTemplate;
 	private final IStudentRedisRepository studentRedisRepository;
 	private final IRoot3LevelsRedisRepository root3LevelsRedisRepository;
+	private final IOtherObjectRedisRepository otherObjectRedisRepository;
 
-	public RedisService(RedisTemplate<String, String> redisTemplate, IStudentRedisRepository studentRedisRepository, IRoot3LevelsRedisRepository root3LevelsRedisRepository) {
+	public RedisService(RedisTemplate<String, String> redisTemplate, IStudentRedisRepository studentRedisRepository, IRoot3LevelsRedisRepository root3LevelsRedisRepository, IOtherObjectRedisRepository otherObjectRedisRepository) {
 		this.redisTemplate = redisTemplate; 
 		this.studentRedisRepository = studentRedisRepository;
 		this.root3LevelsRedisRepository = root3LevelsRedisRepository;
+		this.otherObjectRedisRepository = otherObjectRedisRepository;
 	}
 	
     public String getValueFromRedis(String key) {
@@ -56,10 +60,13 @@ public class RedisService implements IRedisService {
     
         // Iterar sobre los objetos JSON y guardarlos en Redis
         for (int i=0; i < jsonArray.length; i++) {
-            Root root = objectMapper.convertValue(jsonArray[i], Root.class);
+        	OtherObject otherObject = objectMapper.convertValue(jsonArray[i], OtherObject.class);
+        	log.info(i + ". persitiendo otherObject en redis: {}", otherObject);
+        	this.otherObjectRedisRepository.save( otherObject );
         	
-            log.info(i + ". persitiendo en redis: {}", root);
-            this.root3LevelsRedisRepository.save( root );
+            //Root root = objectMapper.convertValue(jsonArray[i], Root.class);
+            //log.info(i + ". persitiendo root en redis: {}", root);
+            //this.root3LevelsRedisRepository.save( root );
         }
 	}
 }
