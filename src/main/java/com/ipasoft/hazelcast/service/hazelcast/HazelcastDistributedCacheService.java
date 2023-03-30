@@ -252,7 +252,9 @@ public class HazelcastDistributedCacheService implements IHazelcastDistributedCa
 
 		Collection<Root> results = this.rootsMap.values( finalPredicate );//obtiene todos los roots que cumplen el filtro del predicado
 		
-		return results;//.toList();
+		log.info("resultados filtrados {}", results);
+		
+		return results;
 	}
 	
 	@Override
