@@ -1,13 +1,9 @@
 package com.ipasoft.hazelcast.service.hazelcast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -247,8 +243,8 @@ public class HazelcastDistributedCacheService implements IHazelcastDistributedCa
 		//testSQL();
 
 		//Realiza la consulta utilizando los índices creados
-		Predicate<Integer,Root> rodriPredicate = Predicates.<Integer,Root>ilike("level1.prop1","%rodri%");
-		Predicate<Integer,Root> capoPredicate = Predicates.<Integer,Root>ilike("level1.prop2","%capo%");
+		Predicate<Integer,Root> rodriPredicate = Predicates.<Integer,Root>ilike("level1.prop1", "%rodri%");
+		Predicate<Integer,Root> capoPredicate = Predicates.<Integer,Root>ilike("level1.prop2", "%capo%");
 		//Predicate<Integer,Root> capoPredicate = Predicates.<Integer,Root>.equal("property1", "value1");
 		//Predicate<Integer,Root> capoPredicate = Predicates.<Integer,Root>.greaterThan("property2", 100);
 		
@@ -262,11 +258,11 @@ public class HazelcastDistributedCacheService implements IHazelcastDistributedCa
 	@Override
 	public Iterable<OtherObject> getJoinedRootsAndOtherObjects() {
 		//Realiza la consulta utilizando los índices creados
-		Predicate<Integer,Root> rodriPredicate = Predicates.<Integer,Root>ilike("level1.prop1","%rodri%");
-		Predicate<Integer,Root> capoPredicate = Predicates.<Integer,Root>ilike("level1.prop2","%capo%");
+		Predicate<Integer,Root> rodriPredicate = Predicates.<Integer,Root>ilike("level1.prop1", "%rodri%");
+		Predicate<Integer,Root> capoPredicate = Predicates.<Integer,Root>ilike("level1.prop2", "%capo%");
 		Predicate<Integer,Root> orPredicate = Predicates.or(rodriPredicate, capoPredicate);
 
-		Projection<Entry<Integer,Root>, Comparable<Integer>> myProjectionOfIds = entry -> entry.getValue().getId(); //La proyección que obtiene el atributo deseado, en este caso id
+		Projection<Entry<Integer,Root>, Comparable<Integer>> myProjectionOfIds = entryRoot -> entryRoot.getValue().getId(); //La proyección que obtiene el atributo deseado, en este caso id
 
 		Collection<Comparable<Integer>> IdsOfOtherObjectToFilter = this.rootsMap.project(myProjectionOfIds, orPredicate);
 
